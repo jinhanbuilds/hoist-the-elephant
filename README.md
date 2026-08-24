@@ -70,7 +70,7 @@ It does not automatically resume implementation after the reset.
 
 ## Status and validation
 
-Current release candidate: **v0.1.0**.
+Latest release: **[v0.1.0](https://github.com/jinhanbuilds/hoist-the-elephant/releases/tag/v0.1.0)**.
 
 ```bash
 npm run validate

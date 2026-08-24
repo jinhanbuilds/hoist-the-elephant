@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 - Release candidate
+## 0.1.0 - 2026-08-24
 
 - Package Hoist the Elephant as an independent explicit-only Agent Skill.
 - Preserve the original Chinese product story outside the runtime Skill folder.

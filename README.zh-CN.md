@@ -68,7 +68,7 @@ Agent 应当：
 
 ## 状态与验证
 
-当前发布候选：**v0.1.0**。
+最新版本：**[v0.1.0](https://github.com/jinhanbuilds/hoist-the-elephant/releases/tag/v0.1.0)**。
 
 ```bash
 npm run validate
