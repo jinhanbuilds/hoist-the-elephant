@@ -1,0 +1,6 @@
+interface:
+  display_name: "Hoist the Elephant"
+  short_description: "Re-anchor a long conversation that has drifted"
+  default_prompt: "Use $hoist-the-elephant to re-anchor this conversation before continuing."
+policy:
+  allow_implicit_invocation: false

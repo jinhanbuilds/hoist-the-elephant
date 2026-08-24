@@ -1,0 +1,19 @@
+{
+  "name": "hoist-the-elephant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Release tooling for the Hoist the Elephant Agent Skill.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check:installed": "node scripts/sync-installed-skill.mjs check",
+    "sync:installed": "node scripts/sync-installed-skill.mjs sync",
+    "release:check": "npm run check:installed && npm run validate && npm test",
+    "test": "node --test tests/package.test.mjs",
+    "validate": "node scripts/validate-package.mjs",
+    "build": "node scripts/build-release.mjs"
+  },
+  "license": "MIT"
+}

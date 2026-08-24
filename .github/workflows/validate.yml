@@ -1,0 +1,24 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  package:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate package
+        run: npm run validate
+      - name: Run tests
+        run: npm test
+      - name: Build release directory
+        run: node scripts/build-release.mjs --output "${{ runner.temp }}/release" --no-zip

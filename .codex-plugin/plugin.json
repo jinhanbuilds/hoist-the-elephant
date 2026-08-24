@@ -1,0 +1,35 @@
+{
+  "name": "hoist-the-elephant",
+  "version": "0.1.0",
+  "description": "Interrupt local-correction drift in a long conversation, recover the governing mission or surface context gaps, and pause for confirmation before continuing.",
+  "author": {
+    "name": "Jinhan",
+    "url": "https://github.com/jinhanbuilds"
+  },
+  "homepage": "https://github.com/jinhanbuilds/hoist-the-elephant",
+  "repository": "https://github.com/jinhanbuilds/hoist-the-elephant",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "context-drift",
+    "long-conversations",
+    "re-anchoring"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Hoist the Elephant",
+    "shortDescription": "Re-anchor a conversation that has drifted.",
+    "longDescription": "An explicit-only Agent Skill for stopping a long conversation that is overfitting to recent corrections, recovering the user-owned mission and governing principles when the context supports them, surfacing material gaps or conflicts when it does not, separating stable constraints from adjustable choices, and pausing for confirmation.",
+    "developerName": "Jinhan",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Interactive"
+    ],
+    "defaultPrompt": [
+      "Use $hoist-the-elephant to re-anchor this conversation before continuing.",
+      "Use $hoist-the-elephant to recover what should still govern this work.",
+      "Use $hoist-the-elephant because our local corrections are pulling us off course."
+    ]
+  }
+}
