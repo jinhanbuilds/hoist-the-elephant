@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { homedir } from 'node:os';
-import { dirname, join, relative, resolve } from 'node:path';
+import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -22,7 +22,14 @@ if (unknownArgs.length) throw new Error(`Unknown arguments: ${unknownArgs.join('
 
 const targetRoot = resolve(targetIndex >= 0
   ? args[targetIndex + 1]
-  : join(homedir(), '.codex', 'skills', skillName));
+  : join(homedir(), '.agents', 'skills', skillName));
+
+if (basename(targetRoot) !== skillName || basename(dirname(targetRoot)) !== 'skills') {
+  throw new Error(`Refusing unsafe target. Expected a path ending in skills/${skillName}.`);
+}
+if (targetRoot === sourceRoot || targetRoot === resolve(homedir()) || targetRoot === resolve('/')) {
+  throw new Error('Refusing unsafe or source-equal target.');
+}
 
 function walk(root) {
   if (!existsSync(root)) return [];

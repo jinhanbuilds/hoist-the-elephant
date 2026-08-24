@@ -39,7 +39,8 @@ test('release build contains the complete Skill, product story, and manifest', (
 });
 
 test('installed-Skill sync repairs managed drift without deleting extra files', () => {
-  const installation = mkdtempSync(join(tmpdir(), `${skillName}-installed-`));
+  const root = mkdtempSync(join(tmpdir(), `${skillName}-installed-`));
+  const installation = join(root, 'skills', skillName);
   try {
     mkdirSync(join(installation, 'agents'), { recursive: true });
     writeFileSync(join(installation, 'SKILL.md'), 'stale\n', 'utf8');
@@ -70,6 +71,32 @@ test('installed-Skill sync repairs managed drift without deleting extra files', 
     );
     assert.equal(readFileSync(join(installation, 'README.md'), 'utf8'), 'preserve me\n');
   } finally {
-    rmSync(installation, { recursive: true, force: true });
+    rmSync(root, { recursive: true, force: true });
   }
+});
+
+test('maintainer sync defaults to the shared Agent Skills directory', () => {
+  const root = mkdtempSync(join(tmpdir(), `${skillName}-shared-home-`));
+  try {
+    const result = spawnSync(process.execPath, [
+      join(repositoryRoot, 'scripts', 'sync-installed-skill.mjs'),
+      'sync',
+    ], {
+      cwd: repositoryRoot,
+      encoding: 'utf8',
+      env: { ...process.env, HOME: root, USERPROFILE: root },
+    });
+    assert.equal(result.status, 0, result.stderr || result.stdout);
+    const receipt = JSON.parse(result.stdout);
+    assert.equal(receipt.target, resolve(root, '.agents', 'skills', skillName));
+    assert.equal(existsSync(join(receipt.target, 'SKILL.md')), true);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('repository release checks do not depend on a maintainer-local installation', () => {
+  const releaseCheck = packageJson.scripts['release:check'];
+  assert.equal(typeof releaseCheck, 'string');
+  assert.doesNotMatch(releaseCheck, /(?:check|sync):installed/);
 });

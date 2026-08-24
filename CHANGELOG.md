@@ -8,3 +8,7 @@
 - Keep the runtime behavior non-persistent and confirmation-gated.
 - Preserve unknowns when visible conversation history is insufficient or conflicting, without turning re-anchoring into a fixed output template.
 - Add repository-to-installed-Skill drift checking and non-destructive synchronization commands.
+- Document the host-neutral Agent Skills boundary and relevant-history capability requirement.
+- Default maintainer installation sync to the shared `~/.agents/skills/` convention while retaining explicit host-native targets.
+- Replace author-workstation safety markers with generic public-package path checks.
+- Keep repository release checks independent from any maintainer-local Skill installation.

@@ -26,6 +26,10 @@ Hoist the Elephant 会中断这股惯性，重新阅读相关对话，恢复用�
 npx skills add jinhanbuilds/hoist-the-elephant --skill hoist-the-elephant -y
 ```
 
+本包遵循 [Agent Skills 规范](https://agentskills.io/specification)。上述命令使用跨宿主的 `skills` CLI；需要明确选择已支持宿主时可追加 `--agent <host>`。手动安装时，把 `skills/hoist-the-elephant/` 复制到目标宿主会扫描的目录；支持共享约定的宿主可以使用 `~/.agents/skills/hoist-the-elephant/`。
+
+核心 `SKILL.md` 不绑定宿主。`skills/hoist-the-elephant/agents/openai.yaml` 与 `.codex-plugin/plugin.json` 是可选的 OpenAI／ChatGPT／Codex 元数据；兼容的非 OpenAI 宿主可以忽略。重新定锚要求宿主能够访问相关对话历史；历史不可见或相互冲突时，本 Skill 会明确缺口，不会自行补造。
+
 安装后重新打开 Agent 宿主，并明确调用：
 
 ```text
@@ -59,8 +63,8 @@ Agent 应当：
 
 - `skills/hoist-the-elephant/`：完整运行 Skill。
 - `docs/product-story.zh-CN.md`：原有独立产品故事与机制说明。
-- `.codex-plugin/plugin.json`：Codex／ChatGPT Plugin 元数据。
-- `scripts/`、`tests/`：包校验与可重复发布构建。
+- `.codex-plugin/plugin.json`：可选的 OpenAI／ChatGPT／Codex Plugin 元数据。
+- `scripts/`、`tests/`：包校验、可重复发布构建，以及仅供维护者使用的本地安装同步。
 
 ## 状态与验证
 

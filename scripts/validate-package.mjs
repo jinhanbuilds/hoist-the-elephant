@@ -74,18 +74,27 @@ if (!existsSync(versionPath) || !existsSync(packagePath) || !existsSync(pluginPa
   }
   if (existsSync(join(skillRoot, 'README.md'))) errors.push(`${skillName} contains an auxiliary README.md inside the runtime Skill folder`);
 
-  const readmePath = join(repositoryRoot, 'README.md');
-  if (existsSync(readmePath)) {
-    const expectedInstall = `npx skills add jinhanbuilds/${skillName} --skill ${skillName} -y`;
-    if (!readFileSync(readmePath, 'utf8').includes(expectedInstall)) errors.push('README is missing the exact remote install command');
+  const expectedInstall = `npx skills add jinhanbuilds/${skillName} --skill ${skillName} -y`;
+  const expectedSharedPath = `~/.agents/skills/${skillName}/`;
+  for (const readmeName of ['README.md', 'README.zh-CN.md']) {
+    const readmePath = join(repositoryRoot, readmeName);
+    if (!existsSync(readmePath)) continue;
+    const readme = readFileSync(readmePath, 'utf8');
+    if (!readme.includes(expectedInstall)) errors.push(`${readmeName} is missing the exact remote install command`);
+    if (!readme.includes('https://agentskills.io/specification')) errors.push(`${readmeName} is missing the Agent Skills specification link`);
+    if (!readme.includes(expectedSharedPath)) errors.push(`${readmeName} is missing the shared skills path`);
   }
 }
 
 const textExtensions = new Set(['.md', '.json', '.yaml', '.yml', '.mjs', '.js', '.html', '.css', '.txt']);
 const forbidden = [
-  /\/Users\/jinhan\//,
-  /LocalProjects\/日记/,
-  /private\/wish-pool-core-p0/,
+  /(?:^|[\s"'\x60=(])\/Users\/[^/\s"'\x60]+(?:\/|$)/m,
+  /(?:^|[\s"'\x60=(])\/home\/[^/\s"'\x60]+(?:\/|$)/m,
+  /(?:^|[\s"'\x60=(])[A-Za-z]:\\Users\\[^\\\r\n"'\x60]+(?:\\|$)/m,
+  /file:\/\/\/(?:Users|home)\//,
+  /file:\/\/\/[A-Za-z]:\/Users\//,
+  /(?:^|[\s"'\x60=(])LocalProjects\/[^\s"'\x60]+/m,
+  /(?:^|[\s"'\x60=(])(?:\.\.\/)*private\/[^\s"'\x60]+/m,
   /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
   /\bghp_[A-Za-z0-9]{20,}\b/,
 ];

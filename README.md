@@ -28,6 +28,10 @@ Invoke it when:
 npx skills add jinhanbuilds/hoist-the-elephant --skill hoist-the-elephant -y
 ```
 
+This package follows the [Agent Skills specification](https://agentskills.io/specification). The command above uses the cross-host `skills` CLI; add `--agent <host>` when you need to select a supported host explicitly. For a manual install, copy `skills/hoist-the-elephant/` into a directory your host scans, such as `~/.agents/skills/hoist-the-elephant/` where the shared convention is supported.
+
+The core `SKILL.md` is host-neutral. `skills/hoist-the-elephant/agents/openai.yaml` and `.codex-plugin/plugin.json` are optional OpenAI/ChatGPT/Codex metadata; compatible non-OpenAI hosts may ignore them. Re-anchoring requires access to the relevant conversation history; when that history is unavailable or conflicting, the Skill reports the gap instead of reconstructing it.
+
 Reopen the Agent host after installation, then invoke it explicitly:
 
 ```text
@@ -61,8 +65,8 @@ It does not automatically resume implementation after the reset.
 
 - `skills/hoist-the-elephant/` — the complete runtime Skill.
 - `docs/product-story.zh-CN.md` — the original independent product story and mechanism.
-- `.codex-plugin/plugin.json` — Codex/ChatGPT Plugin metadata.
-- `scripts/` and `tests/` — package validation and reproducible release building.
+- `.codex-plugin/plugin.json` — optional OpenAI/ChatGPT/Codex Plugin metadata.
+- `scripts/` and `tests/` — package validation, reproducible release building, and maintainer-only local installation sync.
 
 ## Status and validation
 
