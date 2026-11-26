@@ -1,5 +1,9 @@
 # Hoist the Elephant
 
+<!-- yarkr:badges:start -->
+[![Indexed on Yarkr](https://api.yarkr.com/functions/v1/api/api/v1/badges/repos/jinhanbuilds/hoist-the-elephant/version.svg)](https://yarkr.com/arks/jinhanbuilds/hoist-the-elephant)
+<!-- yarkr:badges:end -->
+
 [简体中文](README.zh-CN.md)
 
 An explicit-only Agent Skill for re-anchoring a long conversation that has drifted through repeated local corrections.
@@ -79,6 +83,38 @@ npm run build
 ```
 
 Package checks establish structural integrity. Real value should be evaluated on long conversations where local corrections have actually created drift, using the user's confirmation of the recovered mainline as the central acceptance signal.
+
+<!-- yarkr:install:start -->
+## Install with Yarkr
+
+This repo is indexed on [Yarkr](https://yarkr.com/arks/jinhanbuilds/hoist-the-elephant) as the ark [jinhanbuilds/hoist-the-elephant](https://yarkr.com/arks/jinhanbuilds/hoist-the-elephant), so its skills install into Claude Code, Codex, Cursor and other agent harnesses with one command.
+
+### CLI
+
+Install the whole ark, which Yarkr keeps equal to this repo:
+
+```bash
+npx yarkr-cli sync jinhanbuilds/hoist-the-elephant
+```
+
+Or add individual skills:
+
+```bash
+npx yarkr-cli add skill:jinhanbuilds/hoist-the-elephant/hoist-the-elephant
+```
+
+No Node.js? `curl -fsSL https://yarkr.com/install.sh | sh` (macOS, Linux) or `irm https://yarkr.com/install.ps1 | iex` (Windows PowerShell) installs `yarkr` as a standalone binary; then type `yarkr` in place of `npx yarkr-cli`.
+
+### MCP
+
+Connect your agent to the ark over MCP:
+
+```bash
+npx yarkr-cli mcp add jinhanbuilds/hoist-the-elephant
+```
+
+Or point any MCP client at `https://api.yarkr.com/functions/v1/api/mcp/o/jinhanbuilds/hoist-the-elephant`.
+<!-- yarkr:install:end -->
 
 ## License
 
